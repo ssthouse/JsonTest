@@ -4,14 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONStringer;
+import com.ssthouse.jsontest.jsonparse.BaseApi;
+import com.ssthouse.jsontest.jsonparse.FastjsonParser;
+import com.ssthouse.jsontest.jsonparse.GsonApi;
+import com.ssthouse.jsontest.jsonparse.IPersonParser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,46 +28,54 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.id_btn_extract_json_array)
     Button idBtnExtractJsonArray;
 
+    @BindView(R.id.id_rb_base_parse)
+    RadioButton rbBaseParse;
+    @BindView(R.id.rg_parse_potions)
+    RadioGroup rgParseOptions;
+
+    //初始化默认为BaseApi解析
+    private IPersonParser mPersonParser = new BaseApi();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        init();
+    }
+
+    private void init() {
+        rbBaseParse.setChecked(true);
+        rgParseOptions.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.id_rb_base_parse:
+                        mPersonParser = new BaseApi();
+                        break;
+                    case R.id.id_rb_gson_parse:
+                        mPersonParser = new GsonApi();
+                        break;
+                    case R.id.id_rb_fast_parse:
+                        mPersonParser = new FastjsonParser();
+                        break;
+                }
+            }
+        });
     }
 
     @OnClick(R.id.id_btn_extract_json_obj)
     void parseJsonObj() {
-        etJsonStr.setText(generateJsonStr());
-        Person person = new Person();
-        try {
-            JSONObject jsonObject = new JSONObject(generateJsonStr());
-            person.name = jsonObject.getString("name");
-            person.age = jsonObject.getInt("age");
-            person.school = jsonObject.getString("school");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        toastPersonObj(person);
+        String personJsonStr = Person.generateJsonStr();
+        etJsonStr.setText(personJsonStr);
+        toastPersonObj(mPersonParser.getPerson(personJsonStr));
     }
 
     @OnClick(R.id.id_btn_extract_json_array)
     void parseJsonArray() {
-        etJsonStr.setText(generateJsonArrayStr());
-        List<Person> personList = new ArrayList<>();
-        try {
-            JSONArray jsonArray = new JSONArray(generateJsonArrayStr());
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                Person person = new Person();
-                person.name = jsonObject.getString("name");
-                person.age = jsonObject.getInt("age");
-                person.school = jsonObject.getString("school");
-                personList.add(person);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        toastPersonArray(personList);
+        String personJsonArrayStr = Person.generateJsonArrayStr();
+        etJsonStr.setText(personJsonArrayStr);
+        toastPersonArray(mPersonParser.getPersonList(personJsonArrayStr));
     }
 
     private void toastPersonObj(Person person) {
@@ -82,60 +91,4 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, sb.toString(), Toast.LENGTH_LONG).show();
     }
 
-    //构建Json对象字符串
-    private String generateJsonStr() {
-        JSONStringer jsonStr = new JSONStringer();
-        try {
-            jsonStr.object()
-                    .key("name")
-                    .value("ssthouse")
-                    .key("age")
-                    .value(21)
-                    .key("school")
-                    .value("HuaKe")
-                    .endObject();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonStr.toString();
-    }
-
-    //构造JsonArray字符串
-    private String generateJsonArrayStr() {
-        JSONStringer jsonStringer = new JSONStringer();
-        try {
-            jsonStringer.array()
-                    .object()
-                    .key("name")
-                    .value("name1")
-                    .key("age")
-                    .value(1)
-                    .key("school")
-                    .value("school1")
-                    .endObject()
-
-                    .object()
-                    .key("name")
-                    .value("name2")
-                    .key("age")
-                    .value(2)
-                    .key("school")
-                    .value("school2")
-                    .endObject()
-
-                    .object()
-                    .key("name")
-                    .value("name3")
-                    .key("age")
-                    .value(3)
-                    .key("school")
-                    .value("school3")
-                    .endObject()
-
-                    .endArray();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonStringer.toString();
-    }
 }

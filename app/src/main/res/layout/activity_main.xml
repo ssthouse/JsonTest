@@ -32,6 +32,37 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:text="@string/str_extract_json_array" />
+
     </LinearLayout>
+
+
+    <RadioGroup
+        android:id="@+id/rg_parse_potions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center">
+
+        <RadioButton
+            android:id="@+id/id_rb_base_parse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="原生Api" />
+
+        <RadioButton
+            android:id="@+id/id_rb_gson_parse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Gson解析" />
+
+        <RadioButton
+            android:id="@+id/id_rb_fast_parse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Fastjson解析" />
+    </RadioGroup>
 
 </LinearLayout>
