@@ -5,15 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context="com.ssthouse.jsontest.MainActivity">
 
     <EditText
         android:id="@+id/et_json_str"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="100dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/id_btn_extract_json_obj"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/str_extract_json_obj" />
+
+        <Button
+            android:id="@+id/id_btn_extract_json_array"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:text="@string/str_extract_json_array" />
+    </LinearLayout>
+
 </LinearLayout>

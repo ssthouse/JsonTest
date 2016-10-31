@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">JsonTest</string>
+    <string name="str_extract_json_obj">解析Json对象</string>
+    <string name="str_extract_json_array">解析Json数组</string>
 </resources>
