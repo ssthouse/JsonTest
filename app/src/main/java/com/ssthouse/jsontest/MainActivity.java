@@ -8,9 +8,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.ssthouse.jsontest.jsonparse.BaseApi;
+import com.ssthouse.jsontest.jsonparse.BaseParser;
 import com.ssthouse.jsontest.jsonparse.FastjsonParser;
-import com.ssthouse.jsontest.jsonparse.GsonApi;
+import com.ssthouse.jsontest.jsonparse.GsonParser;
 import com.ssthouse.jsontest.jsonparse.IPersonParser;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     RadioGroup rgParseOptions;
 
     //初始化默认为BaseApi解析
-    private IPersonParser mPersonParser = new BaseApi();
+    private IPersonParser mPersonParser = new BaseParser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.id_rb_base_parse:
-                        mPersonParser = new BaseApi();
+                        mPersonParser = new BaseParser();
                         break;
                     case R.id.id_rb_gson_parse:
-                        mPersonParser = new GsonApi();
+                        mPersonParser = new GsonParser();
                         break;
                     case R.id.id_rb_fast_parse:
                         mPersonParser = new FastjsonParser();

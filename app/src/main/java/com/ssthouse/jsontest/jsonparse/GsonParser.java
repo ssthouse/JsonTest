@@ -10,7 +10,7 @@ import java.util.List;
  * Created by ssthouse on 31/10/2016.
  */
 
-public class GsonApi implements IPersonParser {
+public class GsonParser implements IPersonParser {
     @Override
     public Person getPerson(String personJsonStr) {
         Gson gson = new Gson();

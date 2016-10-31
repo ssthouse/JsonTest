@@ -13,7 +13,7 @@ import java.util.List;
  * Created by ssthouse on 31/10/2016.
  */
 
-public class BaseApi implements IPersonParser {
+public class BaseParser implements IPersonParser {
 
     @Override
     public Person getPerson(String personJsonStr) {
