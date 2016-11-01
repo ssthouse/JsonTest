@@ -18,8 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:gravity="left"
-        android:paddingLeft="48dp">
+        android:gravity="start"
+        android:paddingStart="48dp">
 
         <RadioButton
             android:id="@+id/id_rb_base_parse"

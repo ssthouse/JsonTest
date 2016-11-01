@@ -11,18 +11,18 @@ import java.util.List;
  */
 
 public class GsonParser implements IPersonParser {
+
     @Override
     public Person getPerson(String personJsonStr) {
         Gson gson = new Gson();
-        Person person = gson.fromJson(personJsonStr, Person.class);
-        return person;
+        return gson.fromJson(personJsonStr, Person.class);
     }
 
     @Override
     public List<Person> getPersonList(String personJsonArrayStr) {
         Gson gson = new Gson();
-        TypeToken typeToken = new TypeToken<List<Person>>(){};
-        List<Person> personList = gson.fromJson(personJsonArrayStr, typeToken.getType());
-        return personList;
+        TypeToken typeToken = new TypeToken<List<Person>>() {
+        };
+        return gson.fromJson(personJsonArrayStr, typeToken.getType());
     }
 }

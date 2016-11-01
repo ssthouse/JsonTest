@@ -10,6 +10,7 @@ import java.util.List;
  */
 
 public class FastjsonParser implements IPersonParser {
+
     @Override
     public Person getPerson(String personJsonStr) {
         return JSON.parseObject(personJsonStr, Person.class);
